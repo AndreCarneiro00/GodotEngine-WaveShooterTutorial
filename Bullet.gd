@@ -4,6 +4,9 @@ var velocity = Vector2(1, 0)
 var speed = 250
 
 var look_once = true
+
+var blood_particles = preload("res://blood_particles.tscn")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if look_once:
