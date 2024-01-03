@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmqbrcl3snm3l"]
+
+[ext_resource type="Texture2D" uid="uid://5i882qyj7wlv" path="res://assets/Circle.png" id="1_2h7te"]
+[ext_resource type="Script" path="res://Blood_particles.gd" id="2_v5fm7"]
+
+[node name="Blood_particles" type="CPUParticles2D"]
+modulate = Color(0.976471, 0.0745098, 0.243137, 0.12549)
+z_index = -5
+amount = 15
+lifetime = 0.2
+explosiveness = 1.0
+texture = ExtResource("1_2h7te")
+spread = 18.9
+gravity = Vector2(0, 0)
+initial_velocity_min = 82.0
+initial_velocity_max = 658.0
+scale_amount_min = 0.05
+scale_amount_max = 0.15
+script = ExtResource("2_v5fm7")
+
+[node name="Freeze_blood" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Freeze_blood" to="." method="_on_freeze_blood_timeout"]
