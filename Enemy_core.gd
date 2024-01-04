@@ -5,6 +5,7 @@ var velocity = Vector2()
 
 @export var hp: int = 3
 @export var knockback: int = 600
+@export var point: int = 1
 var stun = false
 
 @onready var current_color = modulate
@@ -13,10 +14,11 @@ var blood_particles = preload("res://blood_particles.tscn")
 
 func check_hp():
 	if hp <= 0:
-		Global.points += 1
+		Global.points += point
 		if Global.node_creation_parent != null:
 			var blood_particles_instance = Global.instance_node(blood_particles, global_position, Global.node_creation_parent)
 			blood_particles_instance.rotation = velocity.angle()
+			blood_particles_instance.modulate = Color.from_hsv(current_color.h, current_color.s, 0.5)
 		queue_free()
 
 func basic_movement_toward_player(delta):
@@ -31,7 +33,7 @@ func _on_hitbox_area_entered(area):
 	if area.is_in_group("Enemy_damager") and stun == false:
 		modulate = Color.WHITE
 		velocity = -velocity * knockback
-		hp -= 1
+		hp -= area.get_parent().damage
 		stun = true
 		$Stun_timer.start()
 		area.get_parent().queue_free()

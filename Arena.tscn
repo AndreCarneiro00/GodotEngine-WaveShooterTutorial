@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dirqfk2n6tx1p"]
+[gd_scene load_steps=12 format=3 uid="uid://dirqfk2n6tx1p"]
 
 [ext_resource type="Script" path="res://Arena.gd" id="1_avr2k"]
 [ext_resource type="PackedScene" uid="uid://vkdmb5mm0rkd" path="res://Enemy_1.tscn" id="2_1xgwj"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cffasnqcw3vgn" path="res://Enemy_2.tscn" id="3_78h8f"]
 [ext_resource type="PackedScene" uid="uid://hv258wjfunxq" path="res://Enemy.tscn" id="3_oc35i"]
 [ext_resource type="FontFile" uid="uid://cu1em8va6r1mn" path="res://assets/Font.ttf" id="4_evsg7"]
+[ext_resource type="PackedScene" uid="uid://dxapa71o2duxo" path="res://Power_up_reload.tscn" id="4_uo7ho"]
 [ext_resource type="Script" path="res://Score.gd" id="5_a07pe"]
+[ext_resource type="PackedScene" uid="uid://d2mvh7uaea8ga" path="res://Power_up_damage.tscn" id="5_vdbgf"]
 [ext_resource type="Script" path="res://Highscore.gd" id="6_pgf5y"]
 
 [sub_resource type="Environment" id="Environment_cy2qw"]
@@ -18,6 +20,7 @@ glow_blend_mode = 0
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_avr2k")
 enemies = Array[PackedScene]([ExtResource("2_1xgwj"), ExtResource("3_78h8f")])
+power_ups = Array[PackedScene]([ExtResource("4_uo7ho"), ExtResource("5_vdbgf")])
 
 [node name="Player" parent="." instance=ExtResource("2_k285y")]
 position = Vector2(320, 180)
@@ -33,6 +36,10 @@ wait_time = 2.5
 autostart = true
 
 [node name="Difficulty_timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Power_up_spawn_timer" type="Timer" parent="."]
+wait_time = 15.0
 autostart = true
 
 [node name="UI" type="Node2D" parent="."]
@@ -74,3 +81,4 @@ script = ExtResource("6_pgf5y")
 
 [connection signal="timeout" from="Enemy_spawn_timer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="Difficulty_timer" to="." method="_on_difficulty_timer_timeout"]
+[connection signal="timeout" from="Power_up_spawn_timer" to="." method="_on_power_up_spawn_timer_timeout"]

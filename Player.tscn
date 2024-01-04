@@ -12,15 +12,19 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_xaqp0")
 script = ExtResource("2_31too")
 
-[node name="reload_speed" type="Timer" parent="."]
+[node name="Reload_speed" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." groups=["Player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 visible = false
 shape = SubResource("RectangleShape2D_jx3jw")
 
-[connection signal="timeout" from="reload_speed" to="." method="_on_reload_timeout"]
+[node name="Power_up_cool_down" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Reload_speed" to="." method="_on_Reload_speed_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="Power_up_cool_down" to="." method="_on_power_up_cool_down_timeout"]

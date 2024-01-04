@@ -6,3 +6,4 @@
 modulate = Color(1, 1, 0, 1)
 speed = 140
 hp = 2
+point = 2
